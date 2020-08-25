@@ -1,44 +1,52 @@
 package com.vpanchenko.recipehub;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
-public class ArticlesRecViewAdapter extends RecyclerView.Adapter<ArticlesRecViewAdapter.ViewHolder> {
+public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAdapter.ViewHolder> {
 
-    private ArrayList<Recipe> articles = new ArrayList<>();
+    private static final String TAG = "RecipesRecViewAdapter"; //TODO: shortcut is logt (time 12:49)
+
+    private ArrayList<Recipe> recipes = new ArrayList<>();
     private Context mContext;
 
-    public ArticlesRecViewAdapter(Context mContext) {
+    public RecipesRecViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //we have to create an instance of ViewHolder and return it
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_all_articles,  parent, false);
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_article, parent, false);
+//        ViewHolder holder = new ViewHolder(view);
+//        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        Log.d(TAG, "onBindViewHolder: "); //TODO: shortcut is logd (time 13:05)
+        holder.txtDishName.setText(recipes.get(position).getName());
     }
 
     @Override
     public int getItemCount() { // returns the size of items(size of list) in our Recycle View
-        return articles.size();
+        return recipes.size();
     }
 
-    public void setArticles(ArrayList<Recipe> articles) {
-        this.articles = articles;
+    public void setRecipes(ArrayList<Recipe> recipes) {
+        this.recipes = recipes;
         notifyDataSetChanged();
     }
 
@@ -46,6 +54,7 @@ public class ArticlesRecViewAdapter extends RecyclerView.Adapter<ArticlesRecView
         private CardView parent;
         private ImageView imgArticle;
         private TextView txtDishName;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             parent = itemView.findViewById(R.id.parent);
