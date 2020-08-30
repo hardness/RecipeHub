@@ -7,6 +7,7 @@ public class Recipe {
     private String howToCook;
     private String url;
     private String photo;
+    private boolean isExpanded;
 
     public Recipe(int id, String name, String ingredients, String howToCook, String url, String photo) {
         this.id = id;
@@ -15,6 +16,15 @@ public class Recipe {
         this.howToCook = howToCook;
         this.url = url;
         this.photo = photo;
+        isExpanded = false;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     public int getId() {
