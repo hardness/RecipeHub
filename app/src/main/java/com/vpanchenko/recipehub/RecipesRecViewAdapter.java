@@ -1,6 +1,7 @@
 package com.vpanchenko.recipehub;
 
 import android.content.Context;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,17 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
                 Toast.makeText(mContext, recipes.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.txtDishName.setText(recipes.get(position).getName());
+
+        if (recipes.get(position).isExpanded()) {
+            TransitionManager.beginDelayedTransition(holder.parent);
+            holder.expandedRelLayout.setVisibility(View.VISIBLE);
+            holder.downArrow.setVisibility(View.GONE);
+        }else {
+            holder.expandedRelLayout.setVisibility(View.GONE);
+            holder.downArrow.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -85,6 +97,24 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
             expandedRelLayout = itemView.findViewById(R.id.expandedRelLayout);
             rcpDescription = itemView.findViewById(R.id.rcpDescription);
             rcpDetails = itemView.findViewById(R.id.rcpDetails);
+
+            downArrow.setOnClickListener(new View.OnClickListener() { // down arrow behaviour
+                @Override
+                public void onClick(View v) {
+                    Recipe recipe = recipes.get(getAdapterPosition());
+                    recipe.setExpanded(!recipe.isExpanded());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
+
+            upArrow.setOnClickListener(new View.OnClickListener() { // up arrow behaviour
+                @Override
+                public void onClick(View v) {
+                    Recipe recipe = recipes.get(getAdapterPosition());
+                    recipe.setExpanded(!recipe.isExpanded());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
     }
 }
