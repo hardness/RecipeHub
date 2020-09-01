@@ -1,20 +1,22 @@
 package com.vpanchenko.recipehub;
 
-public class Recipe {
+public class RecipeModel {
     private int id;
     private String name;
+    private String description;
     private String ingredients;
     private String howToCook;
-    private String url;
-    private String photo;
+    //    private String url; //TODO: add it later
+    private String photo; //TODO: added external link
     private boolean isExpanded;
 
-    public Recipe(int id, String name, String ingredients, String howToCook, String url, String photo) {
+    public RecipeModel(int id, String name, String description, String ingredients, String howToCook, String photo) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.ingredients = ingredients;
         this.howToCook = howToCook;
-        this.url = url;
+//        this.url = url;
         this.photo = photo;
         isExpanded = false;
     }
@@ -43,6 +45,14 @@ public class Recipe {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getIngredients() {
         return ingredients;
     }
@@ -59,13 +69,13 @@ public class Recipe {
         this.howToCook = howToCook;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
+//    public String getUrl() {
+//        return url;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.url = url;
+//    }
 
     public String getPhoto() {
         return photo;
@@ -80,9 +90,10 @@ public class Recipe {
         return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", ingredients='" + ingredients + '\'' +
                 ", howToCook='" + howToCook + '\'' +
-                ", url='" + url + '\'' +
+//                ", url='" + url + '\'' +
                 ", photo='" + photo + '\'' +
                 '}';
     }

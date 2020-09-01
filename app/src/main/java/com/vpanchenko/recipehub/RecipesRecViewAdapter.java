@@ -1,6 +1,7 @@
 package com.vpanchenko.recipehub;
 
 import android.content.Context;
+import android.content.Intent;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,7 +23,7 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
 
     private static final String TAG = "RecipesRecViewAdapter"; //TODO: shortcut is logt (time 12:49)
 
-    private ArrayList<Recipe> recipes = new ArrayList<>();
+    private ArrayList<RecipeModel> recipes = new ArrayList<>();
     private Context mContext;
 
     public RecipesRecViewAdapter(Context mContext) {
@@ -32,7 +32,7 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //we have to create an instance of ViewHolder and return it
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // we have to create an instance of ViewHolder and return it
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_article, parent, false);
 //        ViewHolder holder = new ViewHolder(view);
 //        return holder;
@@ -45,13 +45,15 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
         holder.txtDishName.setText(recipes.get(position).getName());
         Glide.with(mContext)
                 .asBitmap()
-                .load(recipes.get(position).getUrl())
+                .load(recipes.get(position).getPhoto())
                 .into(holder.imgArticle);
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, recipes.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, recipes.get(position).getName() + " selected", Toast.LENGTH_SHORT).show(); //TODO: Intent 46:12
+                Intent intent = new Intent(mContext, RecipeActivity.class);
+                mContext.startActivity(intent);
             }
         });
 
@@ -72,7 +74,7 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
         return recipes.size();
     }
 
-    public void setRecipes(ArrayList<Recipe> recipes) {
+    public void setRecipes(ArrayList<RecipeModel> recipes) {
         this.recipes = recipes;
         notifyDataSetChanged();
     }
@@ -96,12 +98,11 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
             upArrow = itemView.findViewById(R.id.btnUpArrow);
             expandedRelLayout = itemView.findViewById(R.id.expandedRelLayout);
             rcpDescription = itemView.findViewById(R.id.rcpDescription);
-            rcpDetails = itemView.findViewById(R.id.rcpDetails);
 
             downArrow.setOnClickListener(new View.OnClickListener() { // down arrow behaviour
                 @Override
                 public void onClick(View v) {
-                    Recipe recipe = recipes.get(getAdapterPosition());
+                    RecipeModel recipe = recipes.get(getAdapterPosition());
                     recipe.setExpanded(!recipe.isExpanded());
                     notifyItemChanged(getAdapterPosition());
                 }
@@ -110,7 +111,7 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
             upArrow.setOnClickListener(new View.OnClickListener() { // up arrow behaviour
                 @Override
                 public void onClick(View v) {
-                    Recipe recipe = recipes.get(getAdapterPosition());
+                    RecipeModel recipe = recipes.get(getAdapterPosition());
                     recipe.setExpanded(!recipe.isExpanded());
                     notifyItemChanged(getAdapterPosition());
                 }

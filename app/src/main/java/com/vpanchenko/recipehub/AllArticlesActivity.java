@@ -1,7 +1,6 @@
 package com.vpanchenko.recipehub;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,13 +25,19 @@ public class AllArticlesActivity extends AppCompatActivity {
 //        articlesRecView.setLayoutManager(new GridLayoutManager(this, 2)); //TODO 23:01
         articlesRecView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe(1,
+        ArrayList<RecipeModel> recipes = new ArrayList<>();
+        recipes.add(new RecipeModel(1,
                 "Borscht",
+                "Borscht description",
                 "ingridients",
                 "how to cook borscht soup",
-                "https://www.youtube.com/watch?v=6CXgPVw_-0g",
-                "some photo"));
+                "https://www.gutekueche.at/img/rezept/13978/borschtsch-leicht-gemacht.jpg"));
+        recipes.add(new RecipeModel(2,
+                "Ananas",
+                "Ananas description",
+                "Ananas ingridients",
+                "how to cook ananas",
+                "https://cdn.webshopapp.com/shops/47345/files/278239177/image.jpg"));
         adapter.setRecipes(recipes);
     }
 }
