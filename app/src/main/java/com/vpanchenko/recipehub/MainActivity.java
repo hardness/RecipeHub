@@ -9,26 +9,26 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnAllArticles, btnHotDishes, btnSalads, btnDeserts, btnFavorites, btnAbout;
+    private Button btnAllRecipes, btnHotDishes, btnSalads, btnDeserts, btnFavorites, btnAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initVies();
+        initViews();
 
-        btnAllArticles.setOnClickListener(new View.OnClickListener() {
+        btnAllRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AllArticlesActivity.class);
+                Intent intent = new Intent(MainActivity.this, AllRecipesActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    private void initVies() {
-        btnAllArticles = findViewById(R.id.btnAllArticles);
+    private void initViews() {
+        btnAllRecipes = findViewById(R.id.btnAllRecipes);
         btnHotDishes = findViewById(R.id.btnHotDishes);
         btnSalads = findViewById(R.id.btnSalads);
         btnDeserts = findViewById(R.id.btnDeserts);

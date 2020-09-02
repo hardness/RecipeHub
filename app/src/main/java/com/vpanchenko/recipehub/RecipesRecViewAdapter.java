@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import static com.vpanchenko.recipehub.RecipeActivity.RECIPE_ID_KEY;
+
 public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAdapter.ViewHolder> {
 
     private static final String TAG = "RecipesRecViewAdapter"; //TODO: shortcut is logt (time 12:49)
@@ -53,6 +55,8 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
             public void onClick(View v) {
 //                Toast.makeText(mContext, recipes.get(position).getName() + " selected", Toast.LENGTH_SHORT).show(); //TODO: Intent 46:12
                 Intent intent = new Intent(mContext, RecipeActivity.class);
+                intent.putExtra(RECIPE_ID_KEY, recipes.get(position).getId()); // TODO: 1:02
+//                intent.putExtra("recipeName", recipes.get(position).getName());
                 mContext.startActivity(intent);
             }
         });
@@ -63,7 +67,7 @@ public class RecipesRecViewAdapter extends RecyclerView.Adapter<RecipesRecViewAd
             TransitionManager.beginDelayedTransition(holder.parent);
             holder.expandedRelLayout.setVisibility(View.VISIBLE);
             holder.downArrow.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.expandedRelLayout.setVisibility(View.GONE);
             holder.downArrow.setVisibility(View.VISIBLE);
         }
