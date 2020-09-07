@@ -81,4 +81,8 @@ public class Utils {
         }
         return null; // TODO: 1:10 - if I didn't find a recipe with id - returns null
     }
+
+    public boolean addToHotDishes(RecipeModel recipe) {
+        return hotDishes.add(recipe);
+    }
 }
