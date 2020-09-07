@@ -25,6 +25,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnHotDishes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HotDishesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Utils.getInstance(); //TODO: 1:27:00 - initialise instance here to prevent some nullPointer issues
     }
 
     private void initViews() {

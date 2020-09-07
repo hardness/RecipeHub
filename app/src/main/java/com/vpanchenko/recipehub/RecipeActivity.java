@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -47,11 +51,48 @@ public class RecipeActivity extends AppCompatActivity {
                 RecipeModel incomingRecipe = Utils.getInstance().getRecipeById(recipeId);
                 if (null != incomingRecipe) {
                     setData(incomingRecipe);
+
+                    handledHotDishes(incomingRecipe);
                 }
             }
         }
-
 //        setData(recipe); //TODO: moved to if statement above (1:11:00 or 1:12:00)
+    }
+
+    /**
+     * Enable and disable button
+     * Add the recipe to Hot Dishes ArrayList
+     */
+
+    private void handledHotDishes(final RecipeModel recipe) {
+        ArrayList<RecipeModel> hotDishes = Utils.getInstance().getHotDishes();
+
+        boolean existInHotDishes = false;
+
+        for (RecipeModel r: hotDishes) {
+            if (r.getId() == recipe.getId()) {
+                existInHotDishes = true;
+            }
+        }
+
+        if (existInHotDishes) {
+            btnAddHotDishes.setEnabled(false);
+        }else {
+            btnAddHotDishes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Utils.getInstance().addToHotDishes(recipe)) {
+                        Toast.makeText(RecipeActivity.this, "Recipe added", Toast.LENGTH_SHORT).show();
+
+                        // TODO: navigate user to HotDishesActivity after clicking on button - ADDED
+                        Intent intent = new Intent(RecipeActivity.this, HotDishesActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(RecipeActivity.this, "Something wrong happened, try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
     }
 
     private void setData(RecipeModel recipe) {
